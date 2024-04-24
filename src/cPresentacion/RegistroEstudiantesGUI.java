@@ -1,5 +1,6 @@
 package cPresentacion;
 
+// Importaciones necesarias
 import cEntidad.Estudiante;
 import cNegocio.EstudiantesBusiness;
 import javax.swing.*;
@@ -13,28 +14,38 @@ import java.util.List;
 
 
 public class RegistroEstudiantesGUI extends JFrame {
+    // Campos de texto para ingresar información del estudiante
     private JTextField nombreField;
     private JTextField apellidoField;
     private JTextField matriculaField;
     private JTextField notaField;
+    // Botones para realizar acciones
     private JButton registrarButton;
     private JButton mostrarButton;
     private JButton limpiarButton;
     private JButton buscarButton;
     private JButton actualizarButton;
     private JButton eliminarButton;
+    
+    // Tabla para mostrar estudiantes
     private JTable estudiantesTable;
+    
+    // Instancia de la clase EstudiantesBusiness para interactuar con la capa de negocio
     private EstudiantesBusiness estudiantesBusiness;
-
+    
+    // Constructor de la clase
     public RegistroEstudiantesGUI() {
+        // Inicializar componentes gráficos
         super("Registro de Estudiantes");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-
+        
+        // Crear panel para campos de texto y botones
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-
+        
+        // Agregar campos de texto y botones al panel
         gbc.insets = new Insets(5, 5, 5, 5);
 
         nombreField = new JTextField(20);
@@ -130,16 +141,19 @@ public class RegistroEstudiantesGUI extends JFrame {
                 eliminarEstudiante();
             }
         });
-
+        
+        // Agregar tabla para mostrar estudiantes
         estudiantesTable = new JTable();
         add(new JScrollPane(estudiantesTable), BorderLayout.EAST);
-
+        
+        // Inicializar instancia de EstudiantesBusiness
         estudiantesBusiness = new EstudiantesBusiness();
 
         pack();
         setVisible(true);
     }
-
+    // Métodos para realizar acciones
+    // Validar campos de texto y registrar estudiante
     private void registrarEstudiante() {
         String nombre = nombreField.getText();
         String apellido = apellidoField.getText();
@@ -166,11 +180,13 @@ public class RegistroEstudiantesGUI extends JFrame {
         }
         return true;
     }
-
+    
+     // Mostrar estudiantes en la tabla
     private void mostrarEstudiantes() {
         estudiantesTable.setModel(new EstudiantesTableModel(estudiantesBusiness.getEstudiantes()));
     }
-
+    
+    // Limpiar campos de texto
     private void limpiarCampos() {
         nombreField.setText("");
         apellidoField.setText("");
@@ -178,6 +194,7 @@ public class RegistroEstudiantesGUI extends JFrame {
         notaField.setText("");
     }
     
+    // Buscar estudiante por matrícula
     private void buscarEstudiante() {
         String matricula = matriculaField.getText();
         Estudiante estudiante = estudiantesBusiness.buscarEstudiantePorMatricula(matricula);
@@ -189,7 +206,8 @@ public class RegistroEstudiantesGUI extends JFrame {
             JOptionPane.showMessageDialog(this, "Estudiante no encontrado");
         }
     }
-
+    
+    // Actualizar nota de estudiante
     private void actualizarEstudiante() {
         String matricula = matriculaField.getText();
         String nombre = nombreField.getText();
@@ -204,7 +222,8 @@ public class RegistroEstudiantesGUI extends JFrame {
         matriculaField.setText("");
         notaField.setText("");
     }
-
+    
+    // Eliminar estudiante por matrícula
     private void eliminarEstudiante() {
         String matricula = matriculaField.getText();
         estudiantesBusiness.eliminarEstudiante(matricula);
@@ -220,6 +239,7 @@ public class RegistroEstudiantesGUI extends JFrame {
     }
 }
 
+// Clase interna para el modelo de tabla
 class EstudiantesTableModel extends AbstractTableModel {
     private List<Estudiante> estudiantes;
 

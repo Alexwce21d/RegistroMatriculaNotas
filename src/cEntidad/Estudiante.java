@@ -5,7 +5,8 @@ public class Estudiante {
     private String apellido;
     private String matricula;
     private String nota;
-
+    
+    // Constructores y métodos getters y setters
     public Estudiante(String nombre, String apellido, String matricula, String nota) {
         this.nombre = nombre;
         this.apellido = apellido;

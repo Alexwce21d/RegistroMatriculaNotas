@@ -1,5 +1,6 @@
 package cDatos;
 
+// Importaciones necesarias
 import cEntidad.Estudiante;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,6 +13,7 @@ import java.util.List;
 public class EstudiantesData {
     private static final String ARCHIVO_ESTUDIANTES = "estudiantes.txt";
 
+    // Métodos para interactuar con el archivo de texto
     public void guardarEstudiante(Estudiante estudiante) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(ARCHIVO_ESTUDIANTES, true))) {
             writer.write(estudiante.toArchivo() + "\n");
